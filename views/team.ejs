@@ -1,0 +1,70 @@
+<%
+    let members = [
+        {
+            name: "Edwin",
+            nickname: "NiwdEE",
+            specialty: "Web",
+            pic: "niwdee.jpg"
+        },
+        {
+            name: "Adrien",
+            nickname: "Adrien2537",
+            specialty: "Reverse",
+            pic: "drien.png"
+        },
+        {
+            name: "Nathan",
+            nickname: "Natjkint",
+            specialty: "Forensics",
+            pic: "natjkint.png"
+        },
+        {
+            name: "Alexandre",
+            nickname: "NaNoBlaze",
+            specialty: "PWN",
+            pic: "nanoblaze.png"
+        },
+        {
+            name: "Riwan",
+            nickname: "ReKTiBou420",
+            specialty: "Crypto",
+            pic: "rektibou420.png"
+        }
+    ]
+%>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Team</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/team.css">
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+
+    <main class="team">
+        <div class="members">
+            <% members.forEach(member => { %>
+                <div class="member">
+                    <div class="member-pic">
+                        <% if (member.pic) { %>
+                            <img src="/img/team/<%= member.pic %>" alt="<%= member.name %>">
+                        <% } else { %>
+                            <img src="/img/team/default.jpg" alt="default">
+                        <% } %>
+                    </div>
+                    <div class="member-info">
+                        <h2><%= member.name %></h2>
+                        <p><strong>Nickname:</strong> <%= member.nickname %></p>
+                        <p><strong>Specialty:</strong> <%= member.specialty %></p>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+</body>
+</html>

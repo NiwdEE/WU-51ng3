@@ -1,0 +1,76 @@
+body{
+    background-color: #090d12;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none; 
+  color: inherit;
+}
+
+
+header .header{
+    position: relative;
+    background-color: #1a1b1c;
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+
+    height: 80px;
+    width: 100%;
+}
+
+header .header h1{
+    color: inherit;
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-grow: 0;
+
+    padding: 0 20px;
+    margin: 0;
+    height: 100%;
+    position: absolute;
+}
+
+
+header .header nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+header .header nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+header .header nav ul li{
+    list-style: none;
+    margin: 10px 40px;
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.noselect{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera, and Edge */
+}

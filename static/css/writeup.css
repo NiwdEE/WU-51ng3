@@ -1,0 +1,20 @@
+.writeup {
+    width: 80%;
+    word-wrap: break-word;
+    margin: 50px 10% ;
+    overflow: hidden;
+}
+
+.writeup a:link{
+    text-decoration: underline;
+    /* color: inherit; */
+    color: #fffb80;
+}
+
+.writeup a:hover{
+    filter: brightness(0.8);
+}
+
+.writeup a:visited{
+    color: #adaa42;
+}

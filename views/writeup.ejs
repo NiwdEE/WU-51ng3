@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.title || "writeup" %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/writeup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+
+    <div class="writeup-header">
+        <h1><%= locals.title || "writeup" %></h1>
+        <p><%= locals.date || "Date not specified" %></p>
+        <p><%= locals.author || "Author not specified" %></p>
+        <p><%= locals.category || "Category not specified" %></p>
+    </div>
+
+    <main class="writeup">
+        <%- content %>
+    </main>
+</body>
+</html>
