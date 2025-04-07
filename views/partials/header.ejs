@@ -24,4 +24,16 @@
         </nav>
         <div class="logo"></div>
     </div>
+
+    <% if(locals.breadcrumbs) { %>
+        <div class="breadcrumbs">
+            <span class="separator">></span>
+            <% locals.breadcrumbs.forEach((crumb, index) => { %>
+                <a href="<%= crumb.path %>" class="noselect"><%= crumb.name %></a>
+                <% if (index < locals.breadcrumbs.length - 1) { %>
+                    <span class="separator">/</span>
+                <% } %>
+            <% }) %>
+        </div>
+    <% } %>
 </header>

@@ -8,6 +8,20 @@
     margin: 50px 10%;
 }
 
+.writeup-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+}
+
+.writeup-title{
+    color: #ffe712;
+}
+
 .writeup-info{
     display: flex;
     flex-direction: row;
@@ -15,9 +29,6 @@
     flex-wrap: wrap;
 
     gap: 35px;
-
-    width: 100%;
-    height: auto;
 }
 
 .writeup-info span{

@@ -74,7 +74,13 @@ app.get("/writeups/:path", (req, res) => {
     let mdPath = path.join(__dirname, '/static/writeups', writeup.path, writeup.root);
 
     let content = fs.readFileSync(mdPath, "utf-8");
-    res.render("writeup", { writeup, content: marked.parse(content) })
+
+    let breadcrumbs = [];
+    breadcrumbs.push({ name: "51ng3", path: "/" });
+    breadcrumbs.push({ name: "Writeups", path: "/writeups" });
+    breadcrumbs.push({ name: writeup.name, path: `/writeups/${writeup.path}` });
+
+    res.render("writeup", { writeup, content: marked.parse(content), breadcrumbs});
 });
 
 

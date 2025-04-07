@@ -13,6 +13,9 @@
 
     <main class="wrapper">
         <div class="writeup-header">
+            <div class="writeup-title">
+                <h1><%= writeup.name %></h1>
+            </div>
             <div class="writeup-info">
                 <% if (writeup.date) { %>
                     <span class="date">
@@ -35,6 +38,10 @@
                     </span>
                 <% } %>
             </div>
+            <div class="writeup-description">
+                <p><%= writeup.description %></p>
+            </div>  
+                
         </div>
 
         <div class="writeup">
