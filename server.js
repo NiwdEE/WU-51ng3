@@ -74,11 +74,6 @@ app.get("/team", (req, res) => {
     res.render("team");
 });
 
-
-app.post("/upload", upload.single("writeup"), (req, res) => {
-    res.redirect("/");
-});
-
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
