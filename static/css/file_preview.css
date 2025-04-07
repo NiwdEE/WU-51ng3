@@ -1,0 +1,19 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: auto;
+    margin: 50px 10%;
+}
+
+.preview pre{
+    border: 1px solid #5c5b48;
+}
+
+.preview{
+    width: 100%;
+    word-wrap: break-word;
+    overflow: hidden;
+}

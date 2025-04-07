@@ -1,0 +1,123 @@
+:root {
+    --ligth-main-color: #ffe712;
+    --dark-main-color: #090d12;
+    --dark-secondary-color: #1a1b1c;
+}
+
+body{
+    background-color: #090d12;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none; 
+  color: inherit;
+}
+
+
+header .header{
+    position: relative;
+    background-color: var(--dark-secondary-color);
+    color: var(--ligth-main-color);
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    justify-content: space-between;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    height: 80px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+header .header h1{
+    color: inherit;
+    font-size: 3em;
+    width: 150px;
+    margin: 0;
+}
+
+header .header div.logo{
+    width: 150px;
+}
+
+
+header .header nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+    height: 100%;
+}
+
+
+header .header nav a{
+    font-size: 1.5em;
+    text-wrap: nowrap;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+header .header nav a:hover{
+    filter: brightness(0.8);
+}
+
+header .header nav a.active::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: var(--ligth-main-color);
+}
+
+
+header .breadcrumbs{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+    width: 100%;
+    height: 50px;
+    padding: 0 50px;
+
+    box-sizing: border-box;
+
+    gap: 20px;
+
+    background-color: var(--ligth-main-color);
+    color: var(--dark-main-color);
+}
+
+header .breadcrumbs a:hover{
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+}
+
+
+.noselect{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera, and Edge */
+}
