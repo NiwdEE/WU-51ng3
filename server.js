@@ -1,9 +1,6 @@
 const express = require("express");
-const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-// const marked = require("marked");
-const showdown = require("showdown");
 const hljs = require("highlight.js");
 
 const Marked = require("marked").Marked;
@@ -22,24 +19,14 @@ const marked = new Marked(
 
 const app = express();
 const PORT = 3000;
-const WRITEUPS_DIR = path.join(__dirname, "writeups");
 
-
-// Configuration de Multer pour l'upload
-const storage = multer.diskStorage({
-    destination: WRITEUPS_DIR,
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
-});
-const upload = multer({ storage });
 
 const WRITEUPS = require("./writeups.json");
 
-// Middleware
+// Middlewares
 
-app.set("view engine", "ejs"); // Définir EJS comme moteur de rendu
-app.set("views", path.join(__dirname, "views")); // Dossier des templates
+app.set("view engine", "ejs"); 
+app.set("views", path.join(__dirname, "views")); 
 app.use(express.static("static"));
 app.use(express.urlencoded({ extended: true }));
 
@@ -56,7 +43,6 @@ app.use(function (req, res, next) {
 // Pages
 
 
-// Route pour afficher la liste des writeups
 app.get("/", (req, res) => {
     res.render("index");
 });
@@ -89,13 +75,10 @@ app.get("/team", (req, res) => {
 });
 
 
-
-// Route pour uploader un writeup
 app.post("/upload", upload.single("writeup"), (req, res) => {
     res.redirect("/");
 });
 
-// Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

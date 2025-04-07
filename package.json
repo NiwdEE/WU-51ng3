@@ -14,11 +14,9 @@
     "express": "^5.1.0",
     "express-blocks": "^0.2.2",
     "highlight.js": "^11.11.1",
-    "highlightjs": "^9.16.2",
     "marked": "^15.0.7",
     "marked-highlight": "^2.2.1",
     "multer": "^1.4.5-lts.2",
-    "showdown": "^2.1.0",
     "wu-51ng3": "file:"
   }
 }
