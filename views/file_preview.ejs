@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.title || "writeup" %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/file_preview.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+
+    <main class="wrapper">
+
+        <% if (type === "notfound") { %>
+            <h1> 404 </h1>
+            <p>File not found</p>
+        <% } else if(type === "alert") { %>
+            <h1> Stop it </h1>
+        <% } else if(type === "image") { %>
+            <h1> Preview of: <b><%= filename %></b></h1>
+            <div class="image-preview">
+                <img src="<%= content %>" alt="Image Preview">
+            </div>
+        <% } else if(type === "render") { %>
+            <h1> Preview of: <b><%= filename %></b></h1>
+            <div class="preview">
+                <%- content %>
+            </div>
+        <% } %>
+
+    </main>
+</body>
+</html>

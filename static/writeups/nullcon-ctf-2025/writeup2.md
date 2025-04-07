@@ -10,6 +10,7 @@
 ## Steganography
 - [Profound toughts](#profound-toughts)
 
+
 # Paginator
 
 The website is a simple PHP application that allows you to query "pages". It has a pagination feature that allow to query multiple pages at once by using the `p` parameter with the following format: `?p=$MIN,$MAX`.
@@ -522,7 +523,7 @@ flag: *ENO{Cr4hP_CRC_Collison_1N_P@ssw0rds!}*
 
 
 
-# Profound toughts
+## Profound toughts
 
 The challenge goal is to find the flag inside of an image.
 

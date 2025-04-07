@@ -53,10 +53,30 @@
 
     <script>
         // For summaries and anchors
-        h1s = document.querySelectorAll("h1");
-        h1s.forEach(h1 => {
-            h1.id = h1.innerText.replace(/\s+/g, '-').toLowerCase();
+        titles = document.querySelectorAll(".wrapper h1, .wrapper h2, .wrapper h3, .wrapper h4, .wrapper h5, .wrapper h6");
+        titles.forEach(title => {
+            let id = title.innerText.replace(/\s+/g, '-').toLowerCase();
+            if(document.getElementById(id)){
+                let i;
+                for(i = 1; document.getElementById(`${id}-${i}`); i++);
+                id = `${id}-${i}`;
+            }
+            title.id = id;
         });
+        
+        imgs = document.querySelectorAll(".wrapper img");
+        imgs.forEach(img => {
+            img.addEventListener("dblclick", function() {
+                window.location.href = "?preview=" + img.getAttribute("src");
+            });
+        });
+
+        links = document.querySelectorAll(".wrapper a[href]");
+        links.forEach((link)=>{
+            if(link.href.startsWith(window.location.origin + "/writeups/") && !link.href.includes("#")) {
+                link.href = "?preview=" + link.getAttribute("href");
+            }
+        })
     </script>
 </body>
 </html>
