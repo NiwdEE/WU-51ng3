@@ -52,7 +52,7 @@ The exploit is an easy SQLi that consists in passing to the `p` parameter the fo
 2,10%20OR%201=1
 ```
 
-This will result in the following values::
+This will result in the following values:
 
 ```php
 $min = '2';
