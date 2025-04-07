@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Nullcon HackIM CTF Goa 2025",
+        "path": "nullcon-ctf-2025",
+        "root": "writeup.md",
+        "description": "Writeup for NullCon CTF 2025",
+        "category": "Web, steganography",
+        "author": "NiwdEE",
+        "date": "01-02 Feb 2025"
+    }
+]

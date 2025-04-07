@@ -26,14 +26,14 @@
     justify-content: center;
     align-items: center;
 
-    margin: 15px 100px;
+    margin: 15px 75px;
 
-    width: 200px;
+    width: 250px;
     height: auto;
 }
 
 .member .member-pic{
-    width: 100%;
+    width: 80%;
     aspect-ratio: 1/1;
     border-radius: 50%;
     overflow: hidden;

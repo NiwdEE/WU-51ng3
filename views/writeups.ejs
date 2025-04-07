@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writeups</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/writeups.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+
+
+    <main class="writeups">
+        <h1>Writeups</h1>
+        <div class="writeups-list">
+            <% writeups.forEach((writeup, index) => { %>
+
+                <div class="writeup-link">
+                    <h2>
+                        <a href="/writeups/<%= writeup.path %>"><%= writeup.name %></a>
+                    </h2>
+
+                    <div class="writeup-info">
+    
+                        <% if (writeup.date) { %>
+                            <span class="date">
+                                <img src="/img/icons/date.svg" alt="calendar icon" class="calendar-icon">
+                                <%= writeup.date %>
+                            </span>
+                        <% } %>
+
+                        <% if (writeup.author) { %>
+                            <span class="author">
+                                <img src="/img/icons/user.svg" alt="author icon" class="author-icon">
+                                <%= writeup.author %>
+                            </span>
+                        <% } %>
+
+                        <% if (writeup.category) { %>
+                            <span class="category">
+                                <img src="/img/icons/binary.svg" alt="tag icon" class="tag-icon">
+                                <%= writeup.category %>
+                            </span>
+                        <% } %>
+
+                    </div>
+
+
+                    <% if (writeup.description) { %>
+                        <p class="writeup-description"><%= writeup.description %></p>
+                    <% } %>
+
+                </div>
+
+                <% if (index < writeups.length - 1) { %>
+                    <hr class="divider">
+                <% } %>
+
+            <% }) %>
+        </div>
+    </main>
+</body>
+</html>

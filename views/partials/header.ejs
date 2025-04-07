@@ -1,12 +1,27 @@
+<%
+    const pages = [
+        { name: 'Home',     path: '/'      },
+        { name: 'Writeups', path: '/writeups' },
+        { name: 'The team', path: '/team'  }
+    ];
+
+    const currentPageIndex = pages.findIndex(page => page.path === locals.path || page.path + '/' === locals.path);
+
+    if (currentPageIndex >= 0)
+        pages[currentPageIndex].active = true;
+
+
+%>
+
+
 <header>
     <div class="header">
         <h1><a href="/" class="noselect">51ng3</a></h1>
         <nav>
-            <ul>
-                <li><a class="noselect" href="/">Home</a></li>
-                <li><a class="noselect" href="/about">Writeups</a></li>
-                <li><a class="noselect" href="/team">The team</a></li>
-            </ul>
+            <% pages.forEach(page => { %>
+                <a class="noselect <%= page.active ? 'active' : '' %>" href="<%= page.path %>"><%= page.name %></a>
+            <% }) %>
         </nav>
+        <div class="logo"></div>
     </div>
 </header>

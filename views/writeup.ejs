@@ -11,15 +11,45 @@
 <body>
     <%- include("partials/header.ejs") %>
 
-    <div class="writeup-header">
-        <h1><%= locals.title || "writeup" %></h1>
-        <p><%= locals.date || "Date not specified" %></p>
-        <p><%= locals.author || "Author not specified" %></p>
-        <p><%= locals.category || "Category not specified" %></p>
-    </div>
+    <main class="wrapper">
+        <div class="writeup-header">
+            <div class="writeup-info">
+                <% if (writeup.date) { %>
+                    <span class="date">
+                        <img src="/img/icons/date.svg" alt="calendar icon" class="calendar-icon">
+                        <%= writeup.date %>
+                    </span>
+                <% } %>
 
-    <main class="writeup">
-        <%- content %>
+                <% if (writeup.author) { %>
+                    <span class="author">
+                        <img src="/img/icons/user.svg" alt="author icon" class="author-icon">
+                        <%= writeup.author %>
+                    </span>
+                <% } %>
+
+                <% if (writeup.category) { %>
+                    <span class="category">
+                        <img src="/img/icons/binary.svg" alt="tag icon" class="tag-icon">
+                        <%= writeup.category %>
+                    </span>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="writeup">
+            <%- content %>
+        </div>
+
     </main>
+
+
+    <script>
+        // For summaries and anchors
+        h1s = document.querySelectorAll("h1");
+        h1s.forEach(h1 => {
+            h1.id = h1.innerText.replace(/\s+/g, '-').toLowerCase();
+        });
+    </script>
 </body>
 </html>
