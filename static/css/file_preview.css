@@ -17,3 +17,17 @@
     word-wrap: break-word;
     overflow: hidden;
 }
+
+.preview a:link{
+    text-decoration: underline;
+    /* color: inherit; */
+    color: #fffb80;
+}
+
+.preview a:hover{
+    filter: brightness(0.8);
+}
+
+.preview a:visited{
+    color: #fffb80;
+}

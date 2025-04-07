@@ -55,7 +55,10 @@
         // For summaries and anchors
         titles = document.querySelectorAll(".wrapper h1, .wrapper h2, .wrapper h3, .wrapper h4, .wrapper h5, .wrapper h6");
         titles.forEach(title => {
-            let id = title.innerText.replace(/\s+/g, '-').toLowerCase();
+            let id = title.innerText
+                .replace(/\s+/g, '-')
+                .replace(/[^a-zA-Z0-9-]/g, '')
+                .toLowerCase();
             if(document.getElementById(id)){
                 let i;
                 for(i = 1; document.getElementById(`${id}-${i}`); i++);
@@ -66,14 +69,15 @@
         
         imgs = document.querySelectorAll(".wrapper img");
         imgs.forEach(img => {
-            img.addEventListener("dblclick", function() {
-                window.location.href = "?preview=" + img.getAttribute("src");
-            });
+            if(img.src.startsWith(window.location.origin + "/writeups/"))
+                img.addEventListener("dblclick", function() {
+                    window.location.href = "?preview=" + img.getAttribute("src");
+                });
         });
 
         links = document.querySelectorAll(".wrapper a[href]");
         links.forEach((link)=>{
-            if(link.href.startsWith(window.location.origin + "/writeups/") && !link.href.includes("#")) {
+            if(link.href.startsWith(window.location.origin + "/writeups/") && link.href.split("#")[0] !== window.location.href.split("#")[0]) {
                 link.href = "?preview=" + link.getAttribute("href");
             }
         })

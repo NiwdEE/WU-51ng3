@@ -62,7 +62,7 @@ app.get("/writeups/:path", (req, res) => {
     breadcrumbs.push({ name: "Writeups", path: "/writeups" });
     breadcrumbs.push({ name: writeup.name, path: `/writeups/${writeup.path}` });
 
-    let preview = req.query.preview;
+    let preview = req.query.preview?.split('#')[0];
     if (!preview){
         let mdPath = path.join(__dirname, '/static/writeups', writeup.path, writeup.root);
 

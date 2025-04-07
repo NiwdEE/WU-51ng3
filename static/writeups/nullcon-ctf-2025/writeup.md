@@ -73,7 +73,7 @@ The flag is encoded in base64, cecoding it gives us:
 
 flag: ***ENO{SQL1_W1th_0uT_C0mm4_W0rks_SomeHow!}***
 
-
+---
 
 # Paginator v2
 
@@ -207,6 +207,8 @@ Once again, the flag is encoded in base64. Decoding it gives us the flag:
 
 *ENO{SQL1_W1th_0uT_C0mm4_W0rks_SomeHow_AgA1n_And_Ag41n!}*
 
+---
+
 # Numberizer
 
 The website is, once again, very simple. So here's a quick description:
@@ -261,6 +263,8 @@ This can be done by using the scientific notation to make the numbers greater th
 Inputting this in the form will give us a negative sum and the flag:
 
 *ENO{INTVAL_IS_NOT_ALW4S_P0S1TiV3!}*
+
+---
 
 # Bfail
 
@@ -350,6 +354,8 @@ Congrats! It appears you have successfully bf'ed the password. Here is your ENO{
 ```
 
 flag: *ENO{BCRYPT_FAILS_TO_B_COOL_IF_THE_PW_IS_TOO_LONG}*
+
+---
 
 # Crahp
 
@@ -519,7 +525,7 @@ You win a flag: ENO{Cr4hP_CRC_Collison_1N_P@ssw0rds!}
 
 flag: *ENO{Cr4hP_CRC_Collison_1N_P@ssw0rds!}*
 
-
+---
 
 
 # Profound toughts

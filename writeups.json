@@ -1,5 +1,14 @@
 [
     {
+        "name": "Example Writeup",
+        "path": "example",
+        "root": "root.md",
+        "description": "Example Writeup to demonstrate the structure of writeups.",
+        "category": "Web, steganography",
+        "author": "NiwdEE",
+        "date": "07 Apr 2025"
+    },
+    {
         "name": "Nullcon HackIM CTF Goa 2025",
         "path": "nullcon-ctf-2025",
         "root": "writeup.md",
