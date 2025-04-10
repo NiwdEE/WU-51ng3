@@ -17,4 +17,13 @@
         "author": "NiwdEE",
         "date": "01-02 Feb 2025"
     }
+    {
+        "name": "HTB-CTF 2025",
+        "path": "HTB-CTF",
+        "root": "writeup.md",
+        "description": "Writeup for HTB-CTF 2025",
+        "category": "Web, IA, OSINT",
+        "author": "NaNoBlaze",
+        "date": "15-25 Feb 2025"
+    }
 ]
