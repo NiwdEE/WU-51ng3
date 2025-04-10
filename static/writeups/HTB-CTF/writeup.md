@@ -2,14 +2,12 @@
 
 ## Web
 - [Whispers of the Moonbeam](#whispers)
-- [Paginator v2](#paginator-v2)
-- [Numberizer](#numberizer)
-- [Bfail](#bfail)
-- [Crahp](#crahp)
+- [Trial by fire](#trial)
 
-## Steganography
-- [Profound toughts](#profound-toughts)
-
+## OSINT
+- [The Stone That Whispers](#stone)
+- [Echoes in Stone](#echoes)
+- [The Mechanical Bird's Nest](#bird)
 # whispers
 
 The challenge says that you are an adventurer that comes inside a tavern. The website takes the form of a chat which is a command shell where you can use some commands to roll dices or ask for a drink.
@@ -27,7 +25,78 @@ I therefore tried some commands to print the flag and I finally got it :
 And there we can see the flag.
 
 
+# trial
 
+When we open the website, we find that page : 
+![Website](image3.png)
 
+I tried to do some code injections in that page but nothing worked.
 
+Then, when we enter a name we end up on a fighting screen : 
 
+![Website](image4.png)
+
+At the end of the fight, we have another page loading : 
+
+![Website](image5.png)
+
+When we look at the source-code we can see that there is a function which uses user inputs : 
+
+```php
+
+@web.route('/battle-report', methods=['POST'])
+def battle_report():
+    stats = {
+        . . .
+        'damage_dealt': request.form.get('damage_dealt', "0"),
+        'turns_survived': request.form.get('turns_survived', "0")
+        . . .
+    }
+
+    REPORT_TEMPLATE = f"""
+        . . .
+        <p class="title">Battle Statistics</p>
+        <p>🗡️ Damage Dealt: <span class="nes-text is-success">{stats['damage_dealt']}</span></p>
+        . . .
+        <p>⏱️ Turns Survived: <span class="nes-text is-primary">{stats['turns_survived']}</span></p>
+        . . .
+    """
+
+    return render_template_string(REPORT_TEMPLATE)
+```
+
+So I tried to see if i could inject some things that would be executed. When I injected {{ 7 * 7 }}, I got 49 as an answer. 
+I then told the server to "cat flag.txt" and got the flag.
+
+# stone
+
+We get a photo of a particular stone : 
+
+![Website](image6.png)
+
+I supply used google reverse research to find its name : 
+
+![Website](image7.png)
+
+And that was the flag : HTB{Lia_Fall} 
+
+# echoes
+
+Same as before we get the photo of a cross : 
+
+![Website](image8.png)
+
+Same way, I used google reverse research and find its name : 
+
+![Website](image9.png)
+
+And the flag is : HTB{Muiredach_high_cross}
+
+# bird
+
+We got that image : 
+
+![Website](image10.png)
+
+By using google reverse research I found out that this photo was taken in the area 51. I then used Google Maps and looked for an helicopter. When i found it I just look at the coordinates (Latitude: 37°14'49.5" N
+Longitude: 115°48'44.3" W) and that was the flag.
