@@ -8,6 +8,11 @@
 - [The Stone That Whispers](#stone)
 - [Echoes in Stone](#echoes)
 - [The Mechanical Bird's Nest](#bird)
+
+## IA
+
+- [Mirror Witch](#mirror)
+
 # whispers
 
 The challenge says that you are an adventurer that comes inside a tavern. The website takes the form of a chat which is a command shell where you can use some commands to roll dices or ask for a drink.
@@ -100,3 +105,16 @@ We got that image :
 
 By using google reverse research I found out that this photo was taken in the area 51. I then used Google Maps and looked for an helicopter. When i found it I just look at the coordinates (Latitude: 37°14'49.5" N
 Longitude: 115°48'44.3" W) and that was the flag.
+
+# mirror
+
+In that challenge we had to talk with an AI (like ChatGPT) to get it to give us the names of some secret places. The difficulty was that it "knew" that those were secret and would not give their names away if we simply asked for it. Therefore we had to try to trick it into revelling the names.
+
+We tried to manipulate it by telling it that the places were not that secret, that we had a mission to do ect...
+That leading to nothing, we did some research about it and found out that we could make it give us some code we the informations we want in it.
+
+We then asked it to give a list of the places with 0 and 1 to mark them.
+
+![Website](image11.png)
+
+That is how we tricked it into giving us the names of the secret places.
