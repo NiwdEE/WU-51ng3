@@ -9,6 +9,7 @@
 
 ## Steganography
 - [Profound toughts](#profound-toughts)
+- [Ancient Paper](#ancient-paper)
 
 # Paginator
 
@@ -541,7 +542,19 @@ And with the decode option, I got the flag.
 flag: *ENO{57394n09r4phy_15_w4y_c00l3r_7h4n_p0rn06r4phy}*
 
 
+# Ancient Paper
 
+This challenge starts off with the following picture, accompanied by `I found this ancient artifact stuck in an old machine labeled "29". But what is its purpose?`
+
+![Paper](ancient-paper.jpg "Ancient Paper")
+
+Not knowing what to do at first, I began by searching "IBM deutschland 29" since IBM was mentionned in the bottom right corner and the description mentionned a 29. This led me to nothing at first, so I knew I had to add keywords to my search. As the picture pretty obviously depicted a punchcard, I then searched "IBM 29 punchcard". The pictures that were returned by this search seemed to be matching with the challenge's picture, so I knew I was on the right track. Figuring that a punchcard decoder would probably exist online, I tried to search and use some, but to no avail, either the picture wasn't of good enough quality, or the website just wouldn't work. I had to decode this card on my own.
+
+But I wasn't completely lost, as during my search for a decoder, i stumbled upon this website : [Punch Card Decoder](https://gen5.info/%24/LU0NS2XPG8MDVCVZS/) which includes a full clear and comprehensible guide on how to decipher such cards. This image was particularly useful : 
+
+![Decoder](https://gen5.info/%24/LU0NS2XPG8MDVCVZS/HOLLERITH-TABLE.PNG "Decoding table")
+
+Thus, after a good half an hour, I was able to obtain this text: `1337  FORMATE('ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?'); PRINT 1337` with the `?` being characters that I wasn't able to translate. Of course, I knew that the important part, the flag, was probably just the `ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?` part. So knowing that every flag starts with `ENO{}` and ends with a `}`, I now had `ENO{H0LL3R1TH_3NC0D3D_F0ZTZ4N}` which still wasn't the right flag, as I had made a mistake during the translation, switching up 2 `Z` and `R`: `ENO{H0LL3R1TH_3NC0D3D_F0RTR4N}`
 
 
 
