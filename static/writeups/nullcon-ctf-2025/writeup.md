@@ -541,6 +541,7 @@ And with the decode option, I got the flag.
 
 flag: *ENO{57394n09r4phy_15_w4y_c00l3r_7h4n_p0rn06r4phy}*
 
+---
 
 # Ancient Paper
 
@@ -554,7 +555,9 @@ But I wasn't completely lost, as during my search for a decoder, i stumbled upon
 
 ![Decoder](https://gen5.info/%24/LU0NS2XPG8MDVCVZS/HOLLERITH-TABLE.PNG "Decoding table")
 
-Thus, after a good half an hour, I was able to obtain this text: `1337  FORMATE('ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?'); PRINT 1337` with the `?` being characters that I wasn't able to translate. Of course, I knew that the important part, the flag, was probably just the `ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?` part. So knowing that every flag starts with `ENO{}` and ends with a `}`, I now had `ENO{H0LL3R1TH_3NC0D3D_F0ZTZ4N}` which still wasn't the right flag, as I had made a mistake during the translation, switching up 2 `Z` and `R`: `ENO{H0LL3R1TH_3NC0D3D_F0RTR4N}`
+Thus, after a good half an hour, I was able to obtain this text: `1337  FORMATE('ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?'); PRINT 1337` with the `?` being characters that I wasn't able to translate. Of course, I knew that the important part, the flag, was probably just the `ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?` part. So knowing that every flag starts with `ENO{}` and ends with a `}`, I now had `ENO{H0LL3R1TH_3NC0D3D_F0ZTZ4N}` which still wasn't the right flag, as I had made a mistake during the translation, switching up 2 `Z` and `R` to get it.
+
+flag: *ENO{H0LL3R1TH_3NC0D3D_F0RTR4N}*
 
 
 
