@@ -25,5 +25,14 @@
         "category": "Web, IA, OSINT",
         "author": "NaNoBlaze, Natjkint",
         "date": "15-25 Mars 2025"
+    },
+    {
+        "name": "Squirrel CTF 2025",
+        "path": "squirrel-ctf-2025",
+        "root": "writeup.md",
+        "description": "Writeup for Squirrel CTF 2025",
+        "category": "Web, reverse, Pwn",
+        "author": "NaNoBlaze",
+        "date": "3-5 Mars 2025"
     }
 ]
