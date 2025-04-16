@@ -69,7 +69,7 @@ Querying all the pages, including the one with ID 1, which contains the flag:
  
 ![The flag](image-1.png)
 
-The flag is encoded in base64, cecoding it gives us:
+The flag is encoded in base64, decoding it gives us:
 
 flag: ***ENO{SQL1_W1th_0uT_C0mm4_W0rks_SomeHow!}***
 
@@ -221,7 +221,7 @@ The numbers are passed as strings and then converted to integers.
 
 Two migigations are in place:
 
-- Every numbers must numeric values and 4 characters long or less:
+- Every numbers must be numeric and 4 characters long or less:
 ```php
 if(!isset($_POST['numbers'][$i]) || strlen($_POST['numbers'][$i])>4 || !is_numeric($_POST['numbers'][$i])) {
     continue;
@@ -251,7 +251,7 @@ The trick here is that PHP understands scientific notation. So, for example, the
 
 This can be used to make an integer overflow.
 
-PHP numbers are 64-bit signed integers witch basically 1 bit for the sign and 63 for the number itself, so the maximum value is `2^63-1` or `9223372036854775807` which makes around `9.2e18`. Adding `1` to this number will make it overflow and become `-9223372036854775808` or `-9.2e18`.
+PHP numbers are 64-bit signed integers witch basically have 1 bit for the sign and 63 for the number itself, so the maximum value is `2^63-1` or `9223372036854775807` which makes around `9.2e18`. Adding `1` to this number will make it overflow and become `-9223372036854775808` or `-9.2e18`.
 
 So, if we can make the sum of the numbers greater than `9223372036854775807` we can make it overflow and become negative.
 This can be done by using the scientific notation to make the numbers greater than `9223372036854775807` and then adding them up, example:
@@ -314,7 +314,7 @@ The password is a string made of 128 random bytes, with the first 71 bytes given
 
 The naive way to brute-force this would be to try all the possible combinations of the remaining 57 bytes, which is `2^(57*8)` or `1.4e137` combinations. This is not really possible to do in a reasonable time (and would get me banned for DoS tentative probably).
 
-But, after some reseach, I found out that even if it can accept a password of 128 bytes, bcrypt hash only uses the first 72 bytes of the password.
+But, after some reseach, I found out that even if bcrypt can accept a password of 128 bytes, it only uses the first 72 bytes of the password for the hash.
 
 Since the first 71 bytes are given in the source code, we can just brute-force the last byte of the password, which is `2^8` or `256` combinations. This is much more reasonable and can be done in a few seconds.
 
