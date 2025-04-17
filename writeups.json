@@ -34,5 +34,23 @@
         "category": "Prompt Injection (AI), OSINT",
         "author": "Natjkint",
         "date": "21-26 Mar 2025"
+    },
+    {
+        "name": "HTB-CTF 2025",
+        "path": "HTB-CTF",
+        "root": "writeup.md",
+        "description": "Writeup for HTB-CTF 2025",
+        "category": "Web, IA, OSINT",
+        "author": "NaNoBlaze, Natjkint",
+        "date": "15-25 Mars 2025"
+    },
+    {
+        "name": "Squirrel CTF 2025",
+        "path": "squirrel-ctf-2025",
+        "root": "writeup.md",
+        "description": "Writeup for Squirrel CTF 2025",
+        "category": "Web, reverse, Pwn",
+        "author": "NaNoBlaze",
+        "date": "3-5 Mars 2025"
     }
 ]
