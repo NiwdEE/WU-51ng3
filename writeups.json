@@ -14,7 +14,16 @@
         "root": "writeup.md",
         "description": "Writeup for NullCon CTF 2025",
         "category": "Web, steganography",
-        "author": "NiwdEE",
+        "author": "NiwdEE, Natjkint",
         "date": "01-02 Feb 2025"
+    },
+    {
+        "name": "Cyber Apocalypse CTF 2025: Tales from Eldoria",
+        "path": "cyber-apocalypse-2025",
+        "root": "cyber_apocalypse_wu.md",
+        "description": "Writeup for Cyber Apocalypse CTF 2025",
+        "category": "Prompt Injection (AI), OSINT",
+        "author": "Natjkint",
+        "date": "21-26 Mar 20250"
     }
 ]
