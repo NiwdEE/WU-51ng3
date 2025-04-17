@@ -9,6 +9,10 @@
 
 ## Steganography
 - [Profound toughts](#profound-toughts)
+- [Ancient Paper](#ancient-paper)
+
+## Reversing
+- [Flag checker](#flag-checker)
 
 # Paginator
 
@@ -69,7 +73,7 @@ Querying all the pages, including the one with ID 1, which contains the flag:
  
 ![The flag](image-1.png)
 
-The flag is encoded in base64, cecoding it gives us:
+The flag is encoded in base64, decoding it gives us:
 
 flag: ***ENO{SQL1_W1th_0uT_C0mm4_W0rks_SomeHow!}***
 
@@ -221,7 +225,7 @@ The numbers are passed as strings and then converted to integers.
 
 Two migigations are in place:
 
-- Every numbers must numeric values and 4 characters long or less:
+- Every numbers must be numeric and 4 characters long or less:
 ```php
 if(!isset($_POST['numbers'][$i]) || strlen($_POST['numbers'][$i])>4 || !is_numeric($_POST['numbers'][$i])) {
     continue;
@@ -251,7 +255,7 @@ The trick here is that PHP understands scientific notation. So, for example, the
 
 This can be used to make an integer overflow.
 
-PHP numbers are 64-bit signed integers witch basically 1 bit for the sign and 63 for the number itself, so the maximum value is `2^63-1` or `9223372036854775807` which makes around `9.2e18`. Adding `1` to this number will make it overflow and become `-9223372036854775808` or `-9.2e18`.
+PHP numbers are 64-bit signed integers witch basically have 1 bit for the sign and 63 for the number itself, so the maximum value is `2^63-1` or `9223372036854775807` which makes around `9.2e18`. Adding `1` to this number will make it overflow and become `-9223372036854775808` or `-9.2e18`.
 
 So, if we can make the sum of the numbers greater than `9223372036854775807` we can make it overflow and become negative.
 This can be done by using the scientific notation to make the numbers greater than `9223372036854775807` and then adding them up, example:
@@ -314,7 +318,7 @@ The password is a string made of 128 random bytes, with the first 71 bytes given
 
 The naive way to brute-force this would be to try all the possible combinations of the remaining 57 bytes, which is `2^(57*8)` or `1.4e137` combinations. This is not really possible to do in a reasonable time (and would get me banned for DoS tentative probably).
 
-But, after some reseach, I found out that even if it can accept a password of 128 bytes, bcrypt hash only uses the first 72 bytes of the password.
+But, after some reseach, I found out that even if bcrypt can accept a password of 128 bytes, it only uses the first 72 bytes of the password for the hash.
 
 Since the first 71 bytes are given in the source code, we can just brute-force the last byte of the password, which is `2^8` or `256` combinations. This is much more reasonable and can be done in a few seconds.
 
@@ -540,9 +544,180 @@ And with the decode option, I got the flag.
 
 flag: *ENO{57394n09r4phy_15_w4y_c00l3r_7h4n_p0rn06r4phy}*
 
+---
+
+# Ancient Paper
+
+This challenge starts off with the following picture, accompanied by `I found this ancient artifact stuck in an old machine labeled "29". But what is its purpose?`
+
+![Paper](ancient-paper.jpg "Ancient Paper")
+
+Not knowing what to do at first, I began by searching "IBM deutschland 29" since IBM was mentionned in the bottom right corner and the description mentionned a 29. This led me to nothing at first, so I knew I had to add keywords to my search. As the picture pretty obviously depicted a punchcard, I then searched "IBM 29 punchcard". The pictures that were returned by this search seemed to be matching with the challenge's picture, so I knew I was on the right track. Figuring that a punchcard decoder would probably exist online, I tried to search and use some, but to no avail, either the picture wasn't of good enough quality, or the website just wouldn't work. I had to decode this card on my own.
+
+But I wasn't completely lost, as during my search for a decoder, i stumbled upon this website : [Punch Card Decoder](https://gen5.info/%24/LU0NS2XPG8MDVCVZS/) which includes a full clear and comprehensible guide on how to decipher such cards. This image was particularly useful : 
+
+![Decoder](https://gen5.info/%24/LU0NS2XPG8MDVCVZS/HOLLERITH-TABLE.PNG "Decoding table")
+
+Thus, after a good half an hour, I was able to obtain this text: `1337  FORMATE('ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?'); PRINT 1337` with the `?` being characters that I wasn't able to translate. Of course, I knew that the important part, the flag, was probably just the `ENO?H0LL3R1TH_3NC0D3D_F0ZTZ4N?` part. So knowing that every flag starts with `ENO{}` and ends with a `}`, I now had `ENO{H0LL3R1TH_3NC0D3D_F0ZTZ4N}` which still wasn't the right flag, as I had made a mistake during the translation, switching up 2 `Z` and `R` to get it.
+
+flag: *ENO{H0LL3R1TH_3NC0D3D_F0RTR4N}*
 
 
 
 
 
+---
 
+# flag-checker
+
+## Challenge Information
+
+**Challenge Name:** `flag checker`
+**Category:** Reverse
+
+## Provided Files
+
+- Executable: `flag_checker`
+- Screenshots of disassembled code (main, FUN_0010127a, FUN_001011e9, DAT_00102020)
+
+![checksec](Pasted-image-20250201154507.png)
+![file](Pasted-image-20250201164259.png)
+## Analysis
+
+### Overview
+
+The challenge involves a binary executable that prompts the user for a flag. The binary then performs a series of transformations on the input and compares it to a hardcoded value. If the transformed input matches the hardcoded value, the binary outputs "Correct!", otherwise it outputs "Incorrect!". Our goal is to reverse these transformations and retrieve the original flag.
+
+### Function Breakdown
+
+#### `main`
+
+```c
+undefined8 main(void)
+
+{
+  int iVar1;
+  size_t sVar2;
+  long in_FS_OFFSET;
+  char buffer [40];
+  long canaries;
+
+  canaries = *(long *)(in_FS_OFFSET + 40);
+  printf("Enter the flag: ");
+  fgets(buffer,35,stdin);
+  sVar2 = strcspn(buffer,"\n");
+  buffer[sVar2] = '\0';
+  iVar1 = FUN_0010127a(buffer);
+  if (iVar1 == 0) {
+    puts("Incorrect!");
+  }
+  else {
+    puts("Correct!");
+  }
+  if (canaries != *(long *)(in_FS_OFFSET + 40)) {
+                /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return 0;
+}
+```
+The main function handles user input. It prompts for the flag using printf and reads up to 34 characters (due to fgets(buffer, 35, stdin)) into a buffer. The newline character from the input is removed using strcspn. The input buffer is then passed to the function FUN_0010127a. Based on the return value of this function, the program prints either "Correct!" or "Incorrect!". Stack canaries are also present to detect buffer overflows.
+
+#### `FUN_0010127a`
+
+```c
+undefined8 FUN_0010127a(char *param_1)
+
+{
+  size_t len;
+  undefined8 boolean;
+  long in_FS_OFFSET;
+  int i;
+  char buffer [40];
+  long canaries;
+
+  canaries = *(long *)(in_FS_OFFSET + 40);
+  len = strlen(param_1);
+  if (len == 34) {
+    FUN_001011e9(param_1,buffer);
+    for (i = 0; i < 34; i = i + 1) {
+      if (buffer[i] != (&DAT_00102020)[i]) {
+        boolean = 0;
+        goto LAB_00101302;
+      }
+    }
+    boolean = 1;
+  }
+  else {
+    boolean = 0;
+  }
+LAB_00101302:
+  if (canaries != *(long *)(in_FS_OFFSET + 0x28)) {
+                /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return boolean;
+}
+```
+
+This function is the core logic for flag checking. It first verifies if the length of the input string is exactly 34 characters. If it is, it calls FUN_001011e9 to transform the input and stores the result in a local buffer. Then, it iterates through the transformed buffer, comparing each character with the corresponding byte in the data section DAT_00102020. If all 34 bytes match, the function returns 1 (true), indicating a correct flag. Otherwise, it returns 0 (false).
+
+#### `FUN_001011e9`
+
+```c
+void FUN_001011e9(long param_1,long buffer)
+
+{
+  int i;
+
+  for (i = 0; i < 34; i = i + 1) {
+    *(byte *)(buffer + i) = (*(byte *)(param_1 + i) ^ 0x5a) + (char)i;
+    *(byte *)(buffer + i) = *(char *)(buffer + i) << 3 | *(byte *)(buffer + i) >> 5;
+  }
+  return;
+}
+```
+
+This function performs the transformation on the input string. For each character at index i (from 0 to 33):
+
+It performs a bitwise XOR operation with the hexadecimal value 0x5a.
+It adds the current index i to the result of the XOR operation.
+It performs a left circular shift (ROTL) by 3 bits. This is achieved by taking the leftmost 3 bits and moving them to the rightmost position.
+
+#### `DAT_00102020`
+
+The screenshot shows the following sequence of 34 hexadecimal byte values:
+![hexa](Pasted-image-20250201170828.png)
+
+## Solution
+
+To find the original flag, we need to reverse the operations performed in FUN_001011e9 in reverse order. For each byte in DAT_00102020 at index i:
+
+- Reverse Rotate (ROTR 3)
+- Reverse Addition
+- Reverse XOR
+
+```py
+encrypted = [
+    0xF8, 0xA8, 0xB8, 0x21, 0x60, 0x73, 0x90, 0x83,
+    0x80, 0xC3, 0x9B, 0x80, 0xAB, 0x09, 0x59, 0xD3,
+    0x21, 0xD3, 0xDB, 0xD8, 0xFB, 0x49, 0x99, 0xE0,
+    0x79, 0x3C, 0x4C, 0x49, 0x2C, 0x29, 0xCC, 0xD4, 0xDC, 0x41
+]
+
+flag = ""
+
+for i, c in enumerate(encrypted):
+    # Reverse Rotate Left by 3 (which is Right by 5)
+    rev_rotate = (c >> 3) | ((c & 0x07) << 5)
+    # Reverse Addition
+    original = (rev_rotate - i) & 0xFF # Ensure result stays within byte range
+    # Reverse XOR
+    original ^= 0x5A
+    flag += chr(original)
+
+print("Flag:", flag)
+```
+
+
+flag: *ENO{R3V3R53_3NG1N33R1NG_M45T3R!!!}*
