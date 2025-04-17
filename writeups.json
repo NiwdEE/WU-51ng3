@@ -14,7 +14,7 @@
         "root": "writeup.md",
         "description": "Writeup for NullCon CTF 2025",
         "category": "Web, steganography",
-        "author": "NiwdEE, Natjkint",
+        "author": "NiwdEE, Natjkint, Adrien2537",
         "date": "01-02 Feb 2025"
     },
     {
@@ -24,6 +24,6 @@
         "description": "Writeup for Cyber Apocalypse CTF 2025",
         "category": "Prompt Injection (AI), OSINT",
         "author": "Natjkint",
-        "date": "21-26 Mar 20250"
+        "date": "21-26 Mar 2025"
     }
 ]
