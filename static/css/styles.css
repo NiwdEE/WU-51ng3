@@ -23,6 +23,29 @@ a:active {
 }
 
 
+.hero {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: var(--dark-secondary-color);
+    border-left: 5px solid var(--ligth-main-color);
+    box-shadow: 0 0 20px rgba(255, 231, 18, 0.1);
+    border-radius: 10px;
+}
+
+.hero h2 {
+    color: var(--ligth-main-color);
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+
 header .header{
     position: relative;
     background-color: var(--dark-secondary-color);
