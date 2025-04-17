@@ -89,3 +89,10 @@
     background-color: #5c5b48;
     color: #fffb80;
 }
+
+.writeup img{
+    max-width: 100%;
+    max-height: 200vh;
+    height: auto;
+    margin: 10px 0;
+}
