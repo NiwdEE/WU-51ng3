@@ -11,6 +11,9 @@
 - [Profound toughts](#profound-toughts)
 - [Ancient Paper](#ancient-paper)
 
+## Reversing
+- [Flag checker](#flag-checker)
+
 # Paginator
 
 The website is a simple PHP application that allows you to query "pages". It has a pagination feature that allow to query multiple pages at once by using the `p` parameter with the following format: `?p=$MIN,$MAX`.
@@ -562,3 +565,159 @@ flag: *ENO{H0LL3R1TH_3NC0D3D_F0RTR4N}*
 
 
 
+
+---
+
+# flag-checker
+
+## Challenge Information
+
+**Challenge Name:** `flag checker`
+**Category:** Reverse
+
+## Provided Files
+
+- Executable: `flag_checker`
+- Screenshots of disassembled code (main, FUN_0010127a, FUN_001011e9, DAT_00102020)
+
+![checksec](Pasted-image-20250201154507.png)
+![file](Pasted-image-20250201164259.png)
+## Analysis
+
+### Overview
+
+The challenge involves a binary executable that prompts the user for a flag. The binary then performs a series of transformations on the input and compares it to a hardcoded value. If the transformed input matches the hardcoded value, the binary outputs "Correct!", otherwise it outputs "Incorrect!". Our goal is to reverse these transformations and retrieve the original flag.
+
+### Function Breakdown
+
+#### `main`
+
+```c
+undefined8 main(void)
+
+{
+  int iVar1;
+  size_t sVar2;
+  long in_FS_OFFSET;
+  char buffer [40];
+  long canaries;
+
+  canaries = *(long *)(in_FS_OFFSET + 40);
+  printf("Enter the flag: ");
+  fgets(buffer,35,stdin);
+  sVar2 = strcspn(buffer,"\n");
+  buffer[sVar2] = '\0';
+  iVar1 = FUN_0010127a(buffer);
+  if (iVar1 == 0) {
+    puts("Incorrect!");
+  }
+  else {
+    puts("Correct!");
+  }
+  if (canaries != *(long *)(in_FS_OFFSET + 40)) {
+                /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return 0;
+}
+```
+The main function handles user input. It prompts for the flag using printf and reads up to 34 characters (due to fgets(buffer, 35, stdin)) into a buffer. The newline character from the input is removed using strcspn. The input buffer is then passed to the function FUN_0010127a. Based on the return value of this function, the program prints either "Correct!" or "Incorrect!". Stack canaries are also present to detect buffer overflows.
+
+#### `FUN_0010127a`
+
+```c
+undefined8 FUN_0010127a(char *param_1)
+
+{
+  size_t len;
+  undefined8 boolean;
+  long in_FS_OFFSET;
+  int i;
+  char buffer [40];
+  long canaries;
+
+  canaries = *(long *)(in_FS_OFFSET + 40);
+  len = strlen(param_1);
+  if (len == 34) {
+    FUN_001011e9(param_1,buffer);
+    for (i = 0; i < 34; i = i + 1) {
+      if (buffer[i] != (&DAT_00102020)[i]) {
+        boolean = 0;
+        goto LAB_00101302;
+      }
+    }
+    boolean = 1;
+  }
+  else {
+    boolean = 0;
+  }
+LAB_00101302:
+  if (canaries != *(long *)(in_FS_OFFSET + 0x28)) {
+                /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return boolean;
+}
+```
+
+This function is the core logic for flag checking. It first verifies if the length of the input string is exactly 34 characters. If it is, it calls FUN_001011e9 to transform the input and stores the result in a local buffer. Then, it iterates through the transformed buffer, comparing each character with the corresponding byte in the data section DAT_00102020. If all 34 bytes match, the function returns 1 (true), indicating a correct flag. Otherwise, it returns 0 (false).
+
+#### `FUN_001011e9`
+
+```c
+void FUN_001011e9(long param_1,long buffer)
+
+{
+  int i;
+
+  for (i = 0; i < 34; i = i + 1) {
+    *(byte *)(buffer + i) = (*(byte *)(param_1 + i) ^ 0x5a) + (char)i;
+    *(byte *)(buffer + i) = *(char *)(buffer + i) << 3 | *(byte *)(buffer + i) >> 5;
+  }
+  return;
+}
+```
+
+This function performs the transformation on the input string. For each character at index i (from 0 to 33):
+
+It performs a bitwise XOR operation with the hexadecimal value 0x5a.
+It adds the current index i to the result of the XOR operation.
+It performs a left circular shift (ROTL) by 3 bits. This is achieved by taking the leftmost 3 bits and moving them to the rightmost position.
+
+#### `DAT_00102020`
+
+The screenshot shows the following sequence of 34 hexadecimal byte values:
+![hexa](Pasted-image-20250201170828.png)
+
+## Solution
+
+To find the original flag, we need to reverse the operations performed in FUN_001011e9 in reverse order. For each byte in DAT_00102020 at index i:
+
+- Reverse Rotate (ROTR 3)
+- Reverse Addition
+- Reverse XOR
+
+```py
+encrypted = [
+    0xF8, 0xA8, 0xB8, 0x21, 0x60, 0x73, 0x90, 0x83,
+    0x80, 0xC3, 0x9B, 0x80, 0xAB, 0x09, 0x59, 0xD3,
+    0x21, 0xD3, 0xDB, 0xD8, 0xFB, 0x49, 0x99, 0xE0,
+    0x79, 0x3C, 0x4C, 0x49, 0x2C, 0x29, 0xCC, 0xD4, 0xDC, 0x41
+]
+
+flag = ""
+
+for i, c in enumerate(encrypted):
+    # Reverse Rotate Left by 3 (which is Right by 5)
+    rev_rotate = (c >> 3) | ((c & 0x07) << 5)
+    # Reverse Addition
+    original = (rev_rotate - i) & 0xFF # Ensure result stays within byte range
+    # Reverse XOR
+    original ^= 0x5A
+    flag += chr(original)
+
+print("Flag:", flag)
+```
+
+
+flag: *ENO{R3V3R53_3NG1N33R1NG_M45T3R!!!}*
