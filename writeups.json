@@ -43,5 +43,14 @@
         "category": "Web, reverse, Pwn",
         "author": "NaNoBlaze",
         "date": "3-5 Mars 2025"
+    },
+    {
+        "name": "Root-Me's XMAS Advent Calendar",
+        "path": "rootme-xmas-2025",
+        "root": "README.md",
+        "description": "Writeup for RootMe's XMAS CTF",
+        "category": "crypto, reverse, pwn, bash, steg, OSINT, web, web3",
+        "author": "NiwdEE",
+        "date": "1-23 December 2025"
     }
 ]
