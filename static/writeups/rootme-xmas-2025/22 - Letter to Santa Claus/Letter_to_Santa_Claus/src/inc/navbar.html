@@ -1,0 +1,13 @@
+<nav id="nav" class="nav nav-tabs nav-justified">
+    <a class="nav-link" href="/?action=render" id="nav-render">📝 Preview My Letter</a>
+    <a class="nav-link" href="/?action=add" id="nav-add">✉️ Create Letter Template</a>
+</nav>
+<script>
+    // Highlight active nav link
+    const currentAction = new URLSearchParams(window.location.search).get('action') || 'render';
+    if (currentAction === 'render') {
+        document.getElementById('nav-render').classList.add('active');
+    } else if (currentAction === 'add') {
+        document.getElementById('nav-add').classList.add('active');
+    }
+</script>

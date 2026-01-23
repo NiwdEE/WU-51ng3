@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Christmas Card</title>
+    <link rel="stylesheet" href="{{ cdn_url }}/official/main.css">
+    <link rel="icon" type="image/x-icon" href="{{ cdn_url }}/official/favicon.ico">
+</head>
+<body>
+    <div id="jsvars">
+        <input id="cdn_url_var" type="hidden" value="{{ cdn_url }}">
+        <input id="user_id_var" type="hidden" value="{{ user_id }}">
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>🎄 Christmas Card Creator 🎄</h1>
+            <p>Create your personalized Christmas card with text and images!</p>
+        </div>
+
+        <form id="cardForm" method="POST" action="/generate_card">
+            <div class="content">
+                <div class="editor-section">
+                    <h2 class="section-title">✏️ Card Content</h2>
+                    <div class="card-editor">
+                        <textarea
+                            id="cardText"
+                            name="card"
+                            placeholder="Write your Christmas message here!&#10;&#10;You can also upload image and insert them into your card."
+                            maxlength="2000"
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span> / 2000 characters
+                        </div>
+                    </div>
+
+                    <div class="theme-selector">
+                        <label for="theme">Choose Theme:</label>
+                        <select id="theme" name="theme">
+                            {% for theme in themes %}
+                            <option value="{{ theme }}">{{ theme.capitalize() }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="images-section">
+                    <h2 class="section-title">🖼️ Your Images</h2>
+
+                    <div class="upload-area">
+                        <input type="file" id="imageInput" accept="{{ accept_extensions }}" />
+                        <button type="button" class="upload-btn" id="uploadBtn">
+                            📤 Upload Image
+                        </button>
+                        <div class="upload-info">
+                            Allowed formats: {{ allowed_extensions }}<br/>
+                            Maximum size: 1MB
+                        </div>
+                        <div class="status-message" id="statusMessage"></div>
+                    </div>
+
+                    <div class="files-list" id="filesList">
+                        <div class="loading">Loading your images...</div>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">
+                        🎁 Generate Card
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <p>Made with
+            <a href="/search?search=%3Fq%3Dlove">❤️</a> and
+            <a href="/search?search=%3Fq%3DChristmas%20spirit">Christmas spirit</a>
+        </p>
+    </div>
+    <script>
+        const CDN_URL = document.getElementById('cdn_url_var').value;
+        const USER_ID = document.getElementById('user_id_var').value;
+        const cardText = document.getElementById('cardText');
+        const charCount = document.getElementById('charCount');
+        const imageInput = document.getElementById('imageInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const filesList = document.getElementById('filesList');
+
+        // Character counter
+        cardText.addEventListener('input', () => {
+            const count = cardText.value.length;
+            charCount.textContent = count;
+            if (count >= 1900) {
+                charCount.parentElement.classList.add('warning');
+            } else {
+                charCount.parentElement.classList.remove('warning');
+            }
+        });
+
+        // Upload button click
+        uploadBtn.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        // File upload
+        imageInput.addEventListener('change', async () => {
+            const file = imageInput.files[0];
+            if (!file) return;
+            if (file.size > 1024 * 1024) {
+                showStatus('File too large (>1MB)', 'error');
+                return;
+            };
+
+            uploadBtn.disabled = true;
+            showStatus('Uploading...', 'info');
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('cdn', CDN_URL);
+
+            try {
+                const response = await fetch('/upload_image', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showStatus('Image uploaded successfully!', 'success');
+                    loadRecentFiles();
+                } else {
+                    showStatus(data.error || 'Upload failed', 'error');
+                }
+            } catch (error) {
+                showStatus('Upload failed: ' + error.message, 'error');
+            } finally {
+                uploadBtn.disabled = false;
+                imageInput.value = '';
+            }
+        });
+
+        // Show status message
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = 'status-message ' + type;
+            statusMessage.style.display = 'block';
+        }
+
+        // Insert image tag into textarea
+        function insertImage(url) {
+            const tag = `[img|${url}]`;
+            const start = cardText.selectionStart;
+            const end = cardText.selectionEnd;
+            const text = cardText.value;
+
+            cardText.value = text.substring(0, start) + tag + text.substring(end);
+            cardText.focus();
+            cardText.selectionStart = cardText.selectionEnd = start + tag.length;
+
+            // Trigger input event to update character count
+            cardText.dispatchEvent(new Event('input'));
+        }
+
+        // Load recent files
+        async function loadRecentFiles() {
+            try {
+                const response = await fetch(`${CDN_URL}/api/files/${USER_ID}/recent`);
+                const data = await response.json();
+
+                if (data.files && data.files.length > 0) {
+                    filesList.innerHTML = '';
+                    data.files.forEach(file => {
+                        const fileUrl = `${CDN_URL}/uploads/${USER_ID}/${file.filename}`;
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+
+                        fileItem.innerHTML = `
+                            <img src="${fileUrl}" alt="${file.filename}"/>
+                            <div class="file-info">
+                                <div class="file-name">${file.filename}</div>
+                                <div class="file-meta">
+                                    ${formatFileSize(file.size)} • ${formatDate(file.uploaded_at)}
+                                </div>
+                            </div>
+                            <button type="button" class="insert-btn">
+                                Insert
+                            </button>
+                        `;
+                        fileItem.children[2].onclick = function() { insertImage(`${fileUrl}`) }
+                        filesList.appendChild(fileItem);
+                    });
+                } else {
+                    filesList.innerHTML = '<div class="no-files">No images uploaded yet. Upload your first image above!</div>';
+                }
+            } catch (error) {
+                filesList.innerHTML = '<div class="no-files">Failed to load images.</div>';
+            }
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString();
+        }
+
+        // Make insertImage available globally
+        window.insertImage = insertImage;
+
+        // Load files on page load
+        loadRecentFiles();
+    </script>
+</body>
+</html>
