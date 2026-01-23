@@ -89,7 +89,7 @@ Expected flag format: RM{XX.XXX,YY.YYY}
 
 The only resource given, along with the coordinates, is a picture of a wind turbine on which appears the top of a wooden fence.
 
-![To find](./2%20-%20A%20toy%20adrift!/DJI085.jpg)
+![To find](2%20-%20A%20toy%20adrift!/DJI085.jpg)
 
 ### Solution
 
@@ -97,7 +97,7 @@ My strategy was to use Google Maps to find all wind turbines near the given loca
 
 After a few minutes of researches I got it ! location: 47.6028609,-1.0878067
 
-![Found](./2%20-%20A%20toy%20adrift!/screenshot.png)
+![Found](2%20-%20A%20toy%20adrift!/screenshot.png)
 
 *Flag: RM{47.602,-1.087}*
 
@@ -884,7 +884,7 @@ Using fixed values:
     - (T0,T1) the plain blocks we want as result of AES-IGE^-1(k,cIV) of (M0,M1)
 ```
 
-The demonstration of these formulas can be found [here](./10%20-%20AES%20-%20Telegram's%20Secret/AEG_IEG_Malleability.pdf).
+The demonstration of these formulas can be found here: [AEG_IGE_Malleability.pdf](./10%20-%20AES%20-%20Telegram's%20Secret/AEG_IGE_Malleability.pdf).
 
 Here is the code to forge our malicious ciphertext/IV:
 

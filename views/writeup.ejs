@@ -71,14 +71,14 @@
         imgs.forEach(img => {
             if(img.src.startsWith(window.location.origin + "/writeups/"))
                 img.addEventListener("dblclick", function() {
-                    window.location.href = "?preview=" + img.getAttribute("src");
+                    window.location.href = "preview?file=" + img.getAttribute("src");
                 });
         });
 
         links = document.querySelectorAll(".wrapper a[href]");
         links.forEach((link)=>{
             if(link.href.startsWith(window.location.origin + "/writeups/") && link.href.split("#")[0] !== window.location.href.split("#")[0]) {
-                link.href = "?preview=" + link.getAttribute("href");
+                link.href = "preview?file=" + link.getAttribute("href");
             }
         })
     </script>

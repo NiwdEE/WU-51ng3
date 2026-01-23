@@ -28,6 +28,9 @@
             <div class="preview">
                 <%- content %>
             </div>
+        <% } else if(type === "unable") { %>
+            <h1> Unable to render file: <b><%= filename %></b></h1>
+            <a href="download?file=<%= locals.filename %>" targer="_blank">Download</a>
         <% } %>
 
     </main>
@@ -56,7 +59,7 @@
                 });
         });
 
-        links = document.querySelectorAll(".wrapper a[href]");
+        links = document.querySelectorAll(".preview a[href]");
         links.forEach((link)=>{
             if(link.href.startsWith(window.location.origin + "/writeups/") && !link.href.includes("#")) {
                 link.href = "?preview=" + link.getAttribute("href");
