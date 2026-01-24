@@ -1873,7 +1873,7 @@ This Christmas, you've had enough! Become root. Wreak havoc. And finally earn th
 
 ### Description
 
-The challenge provides an SSH access to a VM with two files in the only accessible folder: `pwnme` and `pwnme.sh`. We are also given the source code of `pwnme.sh` and a `wrapper.c` file, with the Dockerfile of the project. Let's check the Dockerfile first:
+The challenge provides a SSH access to a VM with two files in the only accessible folder: `pwnme` and `pwnme.sh`. We are also given the source code of `pwnme.sh` and a `wrapper.c` file, with the Dockerfile of the project. Let's check the Dockerfile first:
 
 ```Dockerfile
 FROM debian:bookworm-slim
@@ -2025,7 +2025,7 @@ Giving us the following format: `nohup bash -c "exec -a 'PROCNAME' yes" >/dev/nu
 
 We first need to get the name of the flag file. With awk this can be done by using the bash command `find` piped to the instruction `getline`. So the process name should be something like `"find /root flag" | getline` because awk interpret quoted strings as bash commands.
 
-Two problem here: spaces and slashes are banned. For spaces we can just put a `$` before the name string in exec to transform `\t` to indents which are not banned but still a valid bash separator. For the path containing a slash, the easiest way is to see that the wrapper do not clear the environment, so we can just export a variable `$root` whose value is `/root` and awk will nicely get its value.
+Two problem here: spaces and slashes are banned. For spaces we can just put a `$` before the name string in exec to transform `\t` to indents character which are not banned but still a valid bash separator. For the path containing a slash, the easiest way is to see that the wrapper do not clear the environment, so we can just export a variable `$root` whose value is `/root` and awk will nicely get its value.
 
 So the program name should be: `$'"find\t$root\tflag"|getline'`, by escaping every `"` and `$` properly (so they'll be interpreted by `exec` and not `nohup`) we have the following command:
 
@@ -2056,7 +2056,7 @@ Error: unsafe process name detected. for process /proc/20
 user@hate-your-job:~/vmchecker$ kill 194
 ```
 
-We got the flag file's name ! By using the same techniques but by replacing the bash command in awk from `"find /root flag"` by `"cat [flag_file]"` we should be able to read its content. Now, if we export the variable `$flag` contaning the flag file's path, we should use the following command:
+We got the flag file's name! By using the same techniques but by replacing the bash command in awk from `"find /root flag"` by `"cat [flag_file]"` we should be able to read its content. Now, if we export the variable `$flag` contaning the flag file's path, we should use the following command:
 
 ```bash
 nohup bash -c "exec -a \$'\"cat\t\$flag\"|getline' yes" >/dev/null 2>&1 &
@@ -2107,13 +2107,13 @@ execve("/home/user/vmchecker/pwnme.sh", argv_, envp);
 
 So exporting variable to bypass banned characters or using arguments won't work (I didn't mention it but another way to proceed was to use bash args like `$2` in the name and calling the wrapper with the value you needed as arguments).
 
-The `$'\t'` still works but finding a way to pop a `/` from nowhere inside an awk script is way more difficult. There's probably multiple way to do that but here we'll stick to the `printf` trick, thank to this kind line in `pwnme.sh`:
+The `$'\t'` still works but finding a way to pop a `/` from nowhere inside an awk script is way more difficult. There's probably multiple way to do that but here we'll stick to the `printf` trick, thank to this nice line in `pwnme.sh`:
 
 ```sh
 PATH=$(/usr/bin/getconf PATH 2>/dev/null || /bin/kill $$)
 ```
 
-So the `$PATH` variable is copied into the bash script, which is very cool because it most likely begins with a `/`, so we shifted the problem to "How to get the first character of `$PATH`". This can be done with the libc function `printf` that, just like in c, will print strings using a given format. Here we need the format string `"%c"` to print a single character, so passing it a string will only print the very first one.
+So the `$PATH` variable is copied into the bash script, which is very cool because it most likely begins with a `/`, so we shifted the problem to "How to get the first character of `$PATH`". This can be done with the libc function `printf` that, just like in c, will print strings using a given format. Here we need the format string `"%c"` to print a single character, so passing it a string will only print the very first char.
 
 Also, we can only get the `/` with this method. So when we will want to read the file, we'll have to write its name and the chunks `root`, `smell_like_a_flag` and `flag...` must written as is, which is a problem because `'s'` is still a banned character :(
 
