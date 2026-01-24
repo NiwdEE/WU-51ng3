@@ -1,0 +1,16 @@
+FROM python:3.13-slim
+
+RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+COPY ./cdn/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN useradd app
+
+WORKDIR /app
+COPY ./cdn/app.py ./cdn/database.py .
+COPY ./cdn/official ./official
+COPY --chmod=755 ./cdn/entrypoint.sh .
+COPY --chown=app:app ./cdn/db ./db
+
+USER app
+EXPOSE 80
+CMD ["/app/entrypoint.sh"]

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Card</title>
+    <link rel="stylesheet" href="{{ cdn_url }}/official/main.css">
+    <link rel="stylesheet" href="{{ cdn_url }}/official/view_card.css">
+    <link rel="icon" type="image/x-icon" href="{{ cdn_url }}/official/favicon.ico">
+</head>
+<body>
+    <div id="jsvars">
+        <input id="user_id_var" type="hidden" value="{{ user_id }}">
+    </div>
+
+    <div class="header">
+        <h1>🎄 Merry Christmas! 🎄</h1>
+        <p>You've received a special holiday card</p>
+    </div>
+
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomOut" title="Zoom Out">−</button>
+        <button class="zoom-btn" id="zoomIn" title="Zoom In">+</button>
+    </div>
+
+    <div class="card-wrapper">
+        <div class="card-container" id="cardContainer">
+            <div class="card-content">
+                {{ card | safe }}
+            </div>
+        </div>
+    </div>
+
+    <div class="share-section">
+        <div class="share-title">✨ Share this card with your loved ones ✨</div>
+        <div class="url-container">
+            <input type="text" class="url-input" id="cardUrl" readonly>
+        </div>
+        <a class="create-btn" href="/">
+            ✏️ Create Your Own Card
+        </a>
+    </div>
+
+    <div class="footer">
+        <p>Made with
+            <a href="/search?search=%3Fq%3Dlove">❤️</a> and
+            <a href="/search?search=%3Fq%3DChristmas%20spirit">Christmas spirit</a> |
+            <a href="/">Create your own card</a></p>
+    </div>
+
+    <script>
+        const cardUrlInput = document.getElementById('cardUrl');
+        cardUrlInput.value = window.location.href;
+        cardUrlInput.onclick = function() { cardUrlInput.select() };
+
+        // Zoom stuff
+        const USER_ID = document.getElementById('user_id_var').value;
+        const ZOOM_KEY = `card_zoom_${USER_ID}`;
+        const cardContainer = document.getElementById('cardContainer');
+        const zoomInBtn = document.getElementById('zoomIn');
+        const zoomOutBtn = document.getElementById('zoomOut');
+
+        let currentZoom = parseFloat(sessionStorage.getItem(ZOOM_KEY)) || 1.0;
+
+        function applyZoom() {
+            cardContainer.style.transform = `scale(${currentZoom})`;
+            cardContainer.style.transition = 'transform 0.3s ease';
+        }
+
+        function saveZoom() {
+            sessionStorage.setItem(ZOOM_KEY, currentZoom);
+        }
+
+        zoomInBtn.addEventListener('click', () => {
+            if (currentZoom < 1.0) {
+                currentZoom += 0.1;
+                applyZoom();
+                saveZoom();
+            }
+        });
+
+        zoomOutBtn.addEventListener('click', () => {
+            if (currentZoom > 0.5) {
+                currentZoom -= 0.1;
+                applyZoom();
+                saveZoom();
+            }
+        });
+
+        applyZoom();
+    </script>
+</body>
+</html>

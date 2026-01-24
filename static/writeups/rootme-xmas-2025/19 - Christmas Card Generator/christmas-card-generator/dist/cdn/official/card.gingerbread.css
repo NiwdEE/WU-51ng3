@@ -1,0 +1,22 @@
+body {
+    background: linear-gradient(135deg, #8b5a2b 0%, #4e342e 100%);
+}
+
+.card {
+    background: linear-gradient(180deg, #fff7ee 0%, #f3e2d2 100%);
+    box-shadow: 0 25px 60px rgba(78, 52, 46, 0.5);
+    color: #5a3825;
+}
+
+.card h1,
+.card h2 {
+    color: #7a4a2d;
+}
+
+.card .message {
+    color: #6b402a;
+}
+
+.card .divider {
+    background: linear-gradient(to right, transparent, #c49a6c, transparent);
+}

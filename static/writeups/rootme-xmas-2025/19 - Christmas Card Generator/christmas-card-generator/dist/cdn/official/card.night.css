@@ -1,0 +1,28 @@
+body {
+    background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+}
+
+.card {
+    background: linear-gradient(180deg, #1f2a44 0%, #162033 100%);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    color: #e6eef7;
+}
+
+.card h1,
+.card h2 {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.card .message {
+    color: #cbd6e2;
+}
+
+.card .divider {
+    background: linear-gradient(to right, transparent, #ffffff55, transparent);
+}
+
+.create-btn {
+    background: linear-gradient(135deg, #ffd700, #ffb700);
+    color: #1a1a1a;
+}

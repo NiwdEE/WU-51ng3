@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>🎄 Santa's Secret Gift 🎁</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🎅 Santa's Secret Gift 🎁</h1>
+    <p class="subtitle">Upload your BMP file and discover the hidden gift from Santa 🎄</p>
+
+    <form id="uploadForm">
+        <label for="fileInput" class="upload-label">
+            Choose a BMP image
+        </label>
+        <input type="file" id="fileInput" name="file" accept=".bmp" required>
+        <button type="submit" class="btn">🎁 Open the Gift 🎁</button>
+    </form>
+
+    <div id="result" class="result-box hidden">
+        <h2>✨ Here is your gift ✨</h2>
+        <pre id="output"></pre>
+    </div>
+
+</div>
+
+<footer>Find Santa's hidden gift</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

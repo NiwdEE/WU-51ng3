@@ -96,3 +96,8 @@
     height: auto;
     margin: 10px 0;
 }
+
+/*Inline codes*/
+.writeup code:not([class]){ 
+    color: #fff396;
+}

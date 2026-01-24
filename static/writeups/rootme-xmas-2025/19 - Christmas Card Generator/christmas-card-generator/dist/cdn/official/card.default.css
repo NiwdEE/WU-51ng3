@@ -1,0 +1,27 @@
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    color: #333;
+}
+
+.card h1,
+.card h2 {
+    color: #444;
+}
+
+.card .message {
+    color: #555;
+}
+
+.card .divider {
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+}
+
+.footer,
+.footer a {
+    color: rgba(255, 255, 255, 0.8);
+}
