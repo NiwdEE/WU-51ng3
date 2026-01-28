@@ -43,7 +43,8 @@ app.use(function (req, res, next) {
 
 app.use("/writeups/:path", (req, res, next)=>{
     req.metadata.writeup = WRITEUPS.find(writeup => writeup.path === req.params.path);
-    if (!req.metadata.writeup) return res.status(404).send("Writeup non trouvé.");
+    if (!req.metadata.writeup) return res.status(404).render("404");
+;
 
     res.locals.breadcrumbs = [];
     res.locals.breadcrumbs.push({ name: "Home", path: "/" });
@@ -149,6 +150,10 @@ app.get("/writeups/:path/download", (req, res) => {
 app.get("/team", (req, res) => {
     res.render("team");
 });
+
+app.use((req, res) => {
+    res.status(404).render("404");
+})
 
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
