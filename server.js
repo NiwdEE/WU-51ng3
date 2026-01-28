@@ -28,7 +28,7 @@ const WRITEUPS = require("./writeups.json");
 
 app.set("view engine", "ejs"); 
 app.set("views", path.join(__dirname, "views")); 
-app.use(express.static("static"));
+app.use(express.static(path.join(__dirname, "static")));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(function (req, res, next) {
@@ -47,10 +47,10 @@ app.use("/writeups/:path", (req, res, next)=>{
 
     res.locals.breadcrumbs = [];
     res.locals.breadcrumbs.push({ name: "Home", path: "/" });
-    res.locals.breadcrumbs.push({ name: "Writeups", path: "/writeups" });
+    res.locals.breadcrumbs.push({ name: "Writeups", path: "/writeups/" });
 
     let path = req.path.split('/').filter(x=>x!='').reverse();
-    res.locals.breadcrumbs.push({ name: req.metadata.writeup.name, path: `/writeups/${req.metadata.writeup.path}` });
+    res.locals.breadcrumbs.push({ name: req.metadata.writeup.name, path: `/writeups/${req.metadata.writeup.path}/` });
 
     if(!path.length) return next();
     let action = path.pop();

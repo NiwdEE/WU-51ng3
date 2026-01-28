@@ -1,8 +1,8 @@
 <%
     const pages = [
         { name: 'Home',     path: '/'      },
-        { name: 'Writeups', path: '/writeups' },
-        { name: 'The team', path: '/team'  }
+        { name: 'Writeups', path: '/writeups/' },
+        { name: 'The team', path: '/team/'  }
     ];
 
     const currentPageIndex = pages.findIndex(page => page.path === locals.path || page.path + '/' === locals.path);
