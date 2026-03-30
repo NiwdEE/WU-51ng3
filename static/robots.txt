@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: http://51ng3.niwdee.com/sitemap.xml
